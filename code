@@ -1,0 +1,11 @@
+library(MASS)
+library(ggplot2)
+kirkii = read.csv("kirkii.csv")
+str(kirkii)
+kirkii.lda =  lda (factor(region) ~ leaf.longth + leaf.width + petiole.length, data = kirkii)
+data.lda.values <- predict(kirkii.lda)
+plot.data <- data.frame(LD1=data.lda.values$x[,1], LD2=data.lda.values$x[,2], region=kirkii$region)
+p <- ggplot(data=plot.data, aes(x=LD1, y=LD2)) +
+geom_point(aes(color=region)) +
+theme_bw()
+p
